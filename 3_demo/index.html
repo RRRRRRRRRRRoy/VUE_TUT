@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <!-- 使用v-on进行监听 -->
+      <!-- 这里click里面可以写成js代码 -->
+      <!-- 尽量不要这么写 前端的逻辑不要写太重 -->
+      <!-- <button v-on:click="counter++">Add</button> -->
+      <!-- VUE你只需要告诉他在那里进行监听，具体交给框架来做 -->
+      <button v-on:click="add_btn(5)">Add 5</button>
+      <!-- event modifier的应用 -->
+      <!-- left点击时候才能进行数字减2 -->
+      <button v-on:click.left="reduce_btn(2)">Reduce 2</button>
+      <button v-on:click="remove_btn()">Clear</button>
+      <!-- 这里的v-once保证数据仅变更一次，这一次对应的是当前浏览器刷新的一次 -->
+      <!-- 结果为0 -->
+      <p v-once>Start Counter: {{ counter }}</p>
+      <p>Result: {{ counter }}</p>
+      <!-- 当setName中出现多个参数可以用$event来获取default参数 -->
+      <!-- keyup事件针对当前指针点击和释放 -->
+      <!-- 点击输入，按回车后才能显示，这个就是modifier -->
+      <input type="text" v-on:input="setName($event, 'Lou')" v-on:keyup.enter="confirmedInput()">
+      <p>Your Name: {{ confirmedName }}</p>
+      <!-- 当你点击sign up时会发送一个HTTP请求 -->
+      <!-- 此时会刷新当前的页面，导致计数器数据丢失，甚至影响页面布局 -->
+      <!-- 在event后面加一个dot 再加event modifier可以起到对应的嘴用 -->
+      <!-- 这里用submit.prevent来阻止当前页面的刷新 -->
+      <form v-on:submit.prevent="submitForm">
+        <input type="text">
+        <button>Sign up</button>
+      </form>
+    </section>
+  </body>
+</html>
