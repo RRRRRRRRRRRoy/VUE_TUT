@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Dynamic Styling</h1>
+    </header>
+    <section id="styling">
+      <!-- 这里是inline model 通常不会使用 -->
+      <!-- <div  class="demo" 
+            :style="{borderColor: boxASelected ? 'red':'#ccc'}" 
+            @click="boxSelected('A')">
+      </div>
+      <div class="demo" :style="{borderColor:boxBSelected?'blue':'#ccc'}" @click="boxSelected('B')"></div>
+      <div class="demo" :style="{borderColor:boxCSelected?'green':'#ccc'}" @click="boxSelected('C')"></div> -->
+
+      <!-- 使用vbind修改当前的class -->
+      <!-- class={css类别:boolean} -->
+      <!-- 这里也可以写成array的形式，前一个固定格式为字符串，后面非固定为vbind computed -->
+      <div 
+           :class="['demo',boxAClasses]"
+           @click="boxSelected('A')"></div>
+           <!-- 也可以分开写 固定的class 和 vbind class -->
+      <div class="demo" :class="boxBClasses"   @click="boxSelected('B')"></div>
+      <div class="demo" :class="boxCClasses"   @click="boxSelected('C')"></div>
+    </section>
+  </body>
+</html>
