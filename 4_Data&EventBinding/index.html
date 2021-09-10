@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <button v-on:click="add(10)">Add 10</button>
+      <button v-on:click="reduce(5)">Subtract 5</button>
+      <p>Result: {{ counter }}</p>
+      <!-- 在vue中对于既要进行事件绑定也要进行数据绑定的可以使用v-model进行监听 -->
+      <!-- two-way binding -->
+      <input type="text" v-model="name">
+      <button v-on:click="resetInput()">Reset Input</button>
+      <!-- 这样实现存在一种弊端 -->
+      <!-- 当计数器更新的时候，vue会查看当前页面变化的部分 -->
+      <!-- 同时执行当前页面的方法，这会让开发效率降低 -->
+      <!-- 这里vue会执行所有的non-event bound method -->
+      <!-- 这意味着单纯的使用方法去解决动态计算问题并不是一种好的方法 -->
+      <!-- <p>Your Name: {{ outputFullName() }}</p> -->
+      <!-- 为了应对这种问题，引入computed property计算属性 -->
+      <!-- 这里使用compyted property 更像是使用数据属性而非方法，调用的时候不用加() -->
+      <p>Your Name: {{ fullName }}</p>
+    </section>
+  </body>
+</html>
