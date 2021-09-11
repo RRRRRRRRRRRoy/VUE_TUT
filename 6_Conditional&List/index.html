@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <!-- v-if v-show -->
+      <!-- 如果只是希望显示或者隐藏当前元素建议使用v-show -->
+      <!-- 如果进行复杂的逻辑判断建议使用v-if -->
+      <!-- v-if每次会将元素添加或者删除出DOM，开销更大 -->
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enterGoals"/>
+      <button @click="addGoal">Add Goal</button>
+      <!-- v-show不会影响DOM，而是决定当前是否显示 display:none/.... -->
+      <!-- <p v-show="goals.length===0">No goals have been added yet - please start adding some!</p> -->
+      <p v-if="goals.length===0">No goals have been added yet - please start adding some!</p>
+      <!-- vue if条件可以用|| &&进行条件组合  -->
+      <!-- 注意使用if-else的标签需要挨着，中间不能有其他标签 -->
+      <!-- vue if-else 不是单纯的显示与否的问题，而是当前的elemnt是否包括进DOM中-->
+      <!-- 是attaching 和 detaching的关系 -->
+      <ul v-else="goals.length>0">
+        <!-- v-for类似JS中的for循环，与python更像 -->
+        <!-- JS中 const goal of goals -->
+        <!-- goal的作用域仅限当前标签 -->
+        <!-- <li v-for="goal in goals">{{ goal }}</li> -->
+
+        <!-- 如何使用v-for访问当前元素及其index -->
+        <!-- 这里存在一个bug -->
+        <!-- 当我们删除一个input里包含内容的li时候 -->
+        <!-- input的内容不会消失，且下面的li框体会上移 -->
+        <!-- DOM的窗体是不会改变的，但是窗体中的内容是动态的 -->
+        <!-- 这个是由于VUE重用元素所导致的，虽然重用是好事，但是有时也需要分开处理 -->
+        <!-- 当前全是li模块所以，vue认为没有重新定义的必要，直接重用 -->
+        <!-- 解决办法 -->
+        <!-- 使用key进行ID的绑定，告诉VUE这个是独一无二的，即不进行重用 -->
+        <!-- 当前建议使用goal，因为在元素的删除和添加过程中index是动态的 -->
+        <!-- 后期可以使用id进行标识，同时也建议在使用v-for的时候，用key避免重用 -->
+        <li v-for="(goal, index) in goals" :key="goal" @click="removeGoal(index)">
+          <p> {{ goal }} - {{ index }} </p>
+          <!-- 这里的click.stop是为了屏蔽外层的removeGoal -->
+          <input type="text" @click.stop>
+        </li>
+
+        <!-- 使用v-for访问当前对象的key value 和 index -->
+        <!-- <ul>
+          <li v-for="(value,key,index) in {name:'max',age:32}"> {{ value }} {{ key }} {{ index }}</li>
+        </ul> -->
+
+        <!-- 使用v-for loop number -->
+        <!-- <ul>
+          <li v-for="num in 100"> {{ num }} </li>
+        </ul> -->
+      </ul>
+    </section>
+  </body>
+</html>
